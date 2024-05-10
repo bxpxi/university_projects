@@ -1,0 +1,16 @@
+[
+  {
+    "event_id": 11,
+    "date": "2022-11-23",
+    "time": "12:45",
+    "description": "concert",
+    "participants": []
+  },
+  {
+    "event_id": 1,
+    "date": "2005-01-24",
+    "time": "15:05",
+    "description": "ziua mea",
+    "participants": []
+  }
+]
