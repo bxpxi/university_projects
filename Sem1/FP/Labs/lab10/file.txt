@@ -1,0 +1,10 @@
+1,Bober,2023/12/12,Poland,mammal,10
+2,Taxictis lumeus,1994/11/01,Antarctica,reptile,4
+3,Amazonica impennis,2011/04/12,Brazil,reptile,60
+4,A,1234/12/11,Romania,mammal,11
+5,B,2011/03/03,SUA,bird,21
+6,C,2021/06/06,UK,reptile,4
+7,D,1987/07/07,Franta,mammal,2
+8,E,1345/11/11,Romania,reptile,8
+9,O,1345/11/11,Romania,reptile,6
+10,Q,2011/03/03,SUA,bird,22
