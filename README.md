@@ -1,2 +1,1 @@
-# UBB-Info
 University Projects
