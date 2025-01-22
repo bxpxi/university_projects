@@ -1,79 +1,56 @@
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy.stats import norm, expon, uniform
-from scipy.integrate import quad
+from random import sample
+from math import factorial, perm, comb
+from itertools import permutations, combinations, combinations_with_replacement
 
-# 1. Simularea valorii înălțimii unei persoane
-for n in [1000, 2000, 5000]:
-    mean_height = 165
-    std_dev_height = 10
-    heights = np.random.normal(mean_height, std_dev_height, n)
+#Exercitiile 2 si 3
+def func(arg):
+    match arg:
+        case "perm":
+            def permutari(word, numar_total, aleator):
+                perm_list = [''.join(p) for p in permutations(word)]
+                if numar_total:
+                    return factorial(len(word))
+                if aleator:
+                    return ''.join(sample(word, len(word)))
+                return perm_list
 
-    # i) Histogramă și funcția de densitate
-    plt.hist(heights, bins=14, range=(130, 200), density=True, alpha=0.6, color='g', label='Histogram')
-    x = np.linspace(130, 200, 500)
-    plt.plot(x, norm.pdf(x, mean_height, std_dev_height), 'r-', label='Density Function')
-    plt.title(f'Histogram and Density Function (n={n})')
-    plt.xlabel('Height (cm)')
-    plt.ylabel('Relative Frequency')
-    plt.legend()
-    plt.grid()
-    plt.show()
+            print("Permutari: ", permutari("word", False, False))
+            print("Numar permutari: ", permutari("word", True, False))
+            print("Permutare aleatoare: ", permutari("word", False, True))
 
-    # ii) Valoarea medie, deviația standard și proporția [160, 170]
-    empirical_mean = np.mean(heights)
-    empirical_std = np.std(heights)
-    proportion = np.mean((heights >= 160) & (heights <= 170))
+        case 'aranj':
+            def aranjamente(word, k, numar_total, aleator):
+                arr_list = [''.join(p) for p in permutations(word, k)]
+                if numar_total:
+                    return perm(len(word), k)
+                if aleator:
+                    return ''.join(sample(arr_list, 1))
+                return arr_list
 
-    theoretical_mean = mean_height
-    theoretical_std = std_dev_height
-    theoretical_proportion = norm.cdf(170, mean_height, std_dev_height) - norm.cdf(160, mean_height, std_dev_height)
+            print("Aranjamente: ", aranjamente("word", 3, False, False))
+            print("Numar aranjamente: ", aranjamente("word", 3, True, False))
+            print("Aranjament aleator: ", aranjamente("word", 3, False, True))
+        case 'comb':
+            def combinari(word, k, numar_total, aleator):
+                comb_list = [''.join(p) for p in combinations(word,k)]
+                if numar_total:
+                    return comb(len(word), k)
+                if aleator:
+                    return ''.join(sample(comb_list, 1))
+                return comb_list
 
-    print(f"For n={n}:")
-    print(f"Empirical Mean: {empirical_mean}, Theoretical Mean: {theoretical_mean}")
-    print(f"Empirical Std: {empirical_std}, Theoretical Std: {theoretical_std}")
-    print(f"Empirical Proportion [160, 170]: {proportion}, Theoretical Proportion: {theoretical_proportion}")
+            print("Combinari: ", combinari("word", 2, numar_total=False, aleator=False))
+            print("Numar combinari: ", combinari("word", 2, True, False))
+            print("Combinare aleatoare: ", combinari("word", 2, False, True))
 
-# 2. Timpul de printare pentru două imprimante
-prob_I1 = 0.4
-prob_I2 = 0.6
+func("perm")
+func("aranj")
+func("comb")
 
-T1 = expon(scale=1/0.2)  # λ = 0.2, scale = 1/λ
-T2 = uniform(4, 2)       # Interval [4, 6]
+#Exercitiul 4
+comb_repetari_list = [''.join(p) for p in combinations_with_replacement("ABCDE", 4)]
+print("Combinari cu repetitii: ", comb_repetari_list, len(comb_repetari_list))
 
-n = 10000
-samples_I1 = T1.rvs(size=n)
-samples_I2 = T2.rvs(size=n)
-
-# Timpul total de printare (alegere random)
-choices = np.random.choice([1, 2], size=n, p=[prob_I1, prob_I2])
-times = np.where(choices == 1, samples_I1, samples_I2)
-
-# a) Media și deviația standard
-mean_time = np.mean(times)
-std_time = np.std(times)
-print(f"Mean time: {mean_time}, Std time: {std_time}")
-
-# b) Probabilitatea estimată ca timpul să fie < 5 secunde
-prob_less_5_empirical = np.mean(times < 5)
-print(f"Empirical P(T < 5): {prob_less_5_empirical}")
-
-# c) Probabilitatea teoretică
-prob_less_5_theoretical = (prob_I1 * T1.cdf(5)) + (prob_I2 * T2.cdf(5))
-print(f"Theoretical P(T < 5): {prob_less_5_theoretical}")
-
-# 3. Estimarea integralei folosind Monte Carlo
-def integrand(x):
-    return np.exp(-x**2)
-
-a, b = -1, 3
-n = 100000
-
-# Valori uniforme pe [a, b]
-x_samples = np.random.uniform(a, b, n)
-estimate = (b - a) * np.mean(np.exp(-x_samples**2))
-print(f"Monte Carlo Estimate: {estimate}")
-
-# Valoarea exactă
-exact_value, _ = quad(integrand, a, b)
-print(f"Exact Integral Value: {exact_value}")
+#Exercitiul 5
+print("Aranjamente de 8 luate cate 5")
+print(perm(8,5))
