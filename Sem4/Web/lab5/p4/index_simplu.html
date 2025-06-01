@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>X și 0 - Plain JS</title>
+  <style>
+    table { border-collapse: collapse; margin: 20px auto; }
+    td {
+      width: 100px; height: 100px;
+      text-align: center; vertical-align: middle;
+      font-size: 36px; border: 1px solid black;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center;">X și 0 - Plain JavaScript</h2>
+  <table id="tabla"></table>
+  <p id="mesaj" style="text-align:center;"></p>
+
+<script>
+  let tabla = [["", "", ""], ["", "", ""], ["", "", ""]];
+  let userSymbol = "X";
+  let serverSymbol = "0";
+  let jocTerminat = false;
+
+  function desenTabla() {
+    const table = document.getElementById("tabla");
+    table.innerHTML = "";
+
+    for (let i = 0; i < 3; i++) {
+      const row = document.createElement("tr");
+      for (let j = 0; j < 3; j++) {
+        const cell = document.createElement("td");
+        cell.textContent = tabla[i][j];
+        cell.dataset.i = i;
+        cell.dataset.j = j;
+        cell.addEventListener("click", () => mutareUser(i, j));
+        row.appendChild(cell);
+      }
+      table.appendChild(row);
+    }
+  }
+
+  function mutareUser(i, j) {
+    if (tabla[i][j] !== "" || jocTerminat) return;
+
+    tabla[i][j] = userSymbol;
+    desenTabla();
+
+    fetch("server_move.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tabla: tabla })
+    })
+    .then(r => r.json())
+    .then(resp => {
+      tabla = resp.tabla;
+      desenTabla();
+      if (resp.gata) {
+        document.getElementById("mesaj").textContent = resp.mesaj;
+        jocTerminat = true;
+      }
+    });
+  }
+
+  function incepeJoc() {
+    if (Math.random() < 0.5) {
+      document.getElementById("mesaj").textContent = "Începi tu.";
+    } else {
+      document.getElementById("mesaj").textContent = "Începe calculatorul.";
+      fetch("server_move.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tabla: tabla })
+      })
+      .then(r => r.json())
+      .then(resp => {
+        tabla = resp.tabla;
+        desenTabla();
+      });
+    }
+  }
+
+  desenTabla();
+  incepeJoc();
+</script>
+</body>
+</html>
