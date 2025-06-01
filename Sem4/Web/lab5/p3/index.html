@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Problema 3 AJAX</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h2>Editare client</h2>
+    <label>Selecteaza ID: </label>
+    <select id="idSelect"></select>
+
+    <form id="clientForm">
+        <p><label>Nume: <input type="text" id="nume"></label></p>
+        <p><label>Prenume: <input type="text" id="prenume"></label></p>
+        <p><label>Telefon: <input type="text" id="telefon"></label></p>
+        <p><label>Email: <input type="email" id="email"></label></p>
+        <button type="button" id="save" disabled>Save</button>
+    </form>
+
+    <script>
+        let currentId = null;
+        let modified = false;
+
+        function loadIDs() {
+            $.get("get_ids.php", function(ids) {
+                let html = "";
+                ids.forEach(id => {
+                    html += `<option value="${id}">${id}</option>`;
+                });
+                $("#idSelect").html(html);
+                currentId = ids[0];
+                console.log("Current ID:", currentId);
+                loadClient(currentId);
+            });
+        }
+
+        function loadClient(id) {
+            $.get("get_client.php", { id: id }, function(data) {
+                $("#nume").val(data.nume);
+                $("#prenume").val(data.prenume);
+                $("#telefon").val(data.telefon);
+                $("#email").val(data.email);
+                $("#save").prop("disabled", true);
+                modified = false;
+                currentId = id;
+            });
+        }
+
+        $("#idSelect").on("change", function() {
+            const newId = $(this).val();
+            if (modified) {
+                if (confirm("Datele au fost modificate. Dorești să le salvezi?")) {
+                    saveClient(() => loadClient(newId));
+                } else {
+                    loadClient(newId);
+                }
+            } else {
+                loadClient(newId);
+            }
+        });
+
+        $("#clientForm input").on("input", function() {
+            modified = true;
+            $("#save").prop("disabled", false);
+        });
+
+        function saveClient(callback) {
+            const data = {
+                id: currentId,
+                nume: $("#nume").val(),
+                prenume: $("#prenume").val(),
+                telefon: $("#telefon").val(),
+                email: $("#email").val()
+            };
+            $.ajax({
+                url: "update_client.php",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function() {
+                    modified = false;
+                    $("#save").prop("disabled", true);
+                    if (callback) callback();
+                }
+            });
+        }
+
+        $("#save").on("click", function() {
+            saveClient();
+        });
+
+        $(document).ready(function() {
+            loadIDs();
+        });
+    </script>
+</body>
+</html>
