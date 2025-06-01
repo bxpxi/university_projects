@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<title>Produse - paginare</title>
+<style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; }
+    th { background-color: #eee; }
+    label, select, button { font-size: 1rem; }
+    form { margin-bottom: 15px; }
+</style>
+</head>
+<body>
+    <h1>Lista produse</h1>
+    <form method="get" action="produse.php">
+        <label for="nr">Numar produse pe pagina:</label>
+        <select name="nr" id="nr" required>
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="20">20</option>
+        </select>
+        <button type="submit">Seteaza</button>
+    </form>
+</body>
+</html>
