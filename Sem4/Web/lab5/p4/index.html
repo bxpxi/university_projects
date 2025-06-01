@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>X și 0</title>
+  <style>
+    table { border-collapse: collapse; margin: 20px auto; }
+    td {
+      width: 100px; height: 100px;
+      text-align: center; vertical-align: middle;
+      font-size: 36px; border: 1px solid black;
+      cursor: pointer;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h2 style="text-align:center;">X și 0</h2>
+  <table id="tabla"></table>
+  <p id="mesaj" style="text-align:center;"></p>
+
+<script>
+let tabla = [["", "", ""], ["", "", ""], ["", "", ""]];
+let userSymbol = "X";
+let serverSymbol = "0";
+let jocTerminat = false;
+
+function desenTabla() {
+  let html = "";
+  for (let i = 0; i < 3; i++) {
+    html += "<tr>";
+    for (let j = 0; j < 3; j++) {
+      html += `<td data-i="${i}" data-j="${j}">${tabla[i][j]}</td>`;
+    }
+    html += "</tr>";
+  }
+  $("#tabla").html(html);
+}
+
+function mutareUser(i, j) {
+  if (tabla[i][j] !== "" || jocTerminat) return;
+
+  tabla[i][j] = userSymbol;
+  desenTabla();
+
+  $.post("server_move.php", JSON.stringify({ tabla: tabla }), function(resp) {
+    tabla = resp.tabla;
+    desenTabla();
+
+    if (resp.gata) {
+      $("#mesaj").text(resp.mesaj);
+      jocTerminat = true;
+    }
+  }, "json");
+}
+
+$(document).ready(function() {
+  if (Math.random() < 0.5) {
+    $("#mesaj").text("Începi tu.");
+  } else {
+    $("#mesaj").text("Începe calculatorul.");
+    $.post("server_move.php", JSON.stringify({ tabla: tabla }), function(resp) {
+      tabla = resp.tabla;
+      desenTabla();
+    }, "json");
+  }
+
+  desenTabla();
+
+  $("#tabla").on("click", "td", function() {
+    const i = $(this).data("i");
+    const j = $(this).data("j");
+    mutareUser(i, j);
+  });
+});
+</script>
+</body>
+</html>
