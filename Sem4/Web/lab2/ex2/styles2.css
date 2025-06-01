@@ -1,0 +1,45 @@
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+* {
+    margin: 0;
+}
+
+header {
+    background-color: red;
+    height: 25%;
+}
+
+ul {
+    background-color: yellow;
+    border: 1 px solid black;
+    padding: 0;
+    height: 60%;
+    width: 10%;
+    float: left;
+}
+
+li {
+    border-bottom: 1px solid black;
+}
+
+main {
+    background-color: green;
+    display: inline-block;
+    height: 60%;
+}
+
+footer {
+    background-color: pink;
+    height: 15%;
+}
+
+header, main, footer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+
