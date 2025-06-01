@@ -1,0 +1,32 @@
+input {
+    background-image: url('patrat.png');
+    background-size: 21px;
+    background-repeat: repeat-x;
+    height: 18px;
+    border: 1px solid black;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+}
+
+#nume {
+    width: 415px;
+    letter-spacing: 13.5px;
+    margin-left: 26px;
+}
+
+#prenume {
+    width: 415px;
+    letter-spacing: 13.5px;
+    margin-left: 8px;
+}
+
+#cnp {
+    width: 269px;
+    letter-spacing: 14.5;
+    margin-left: 37px;
+}
+
+label {
+    width: 35px;
+    text-align: right;
+}
