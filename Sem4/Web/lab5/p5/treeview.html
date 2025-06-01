@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Tree View AJAX</title>
+  <style>
+    ul { list-style-type: none; padding-left: 20px; }
+    li { cursor: pointer; margin: 4px 0; }
+    li.folder::before { content: "📁 "; }
+    li.file::before { content: "📄 "; }
+    #fileContent { margin-top: 20px; padding: 10px; border: 1px solid #ccc; white-space: pre; background: #f4f4f4; }
+  </style>
+</head>
+<body>
+
+  <h2>Tree View – Structură Directoare</h2>
+  <div id="treeView"></div>
+
+  <h3>Conținut fișier:</h3>
+  <div id="fileContent">Selectează un fișier pentru a vedea conținutul aici.</div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="treeview.js"></script>
+  <!-- <script src="treeview-jquery.js"></script> -->
+
+</body>
+</html>
