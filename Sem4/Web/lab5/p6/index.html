@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Filtrare Notebook-uri</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    select { margin-right: 10px; }
+    table { margin-top: 20px; border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 5px; text-align: left; }
+  </style>
+</head>
+<body>
+  <h2>Filtrare notebook-uri</h2>
+
+  <label>Producator:
+    <select id="producator"></select>
+  </label>
+
+  <label>Procesor:
+    <select id="procesor"></select>
+  </label>
+
+  <label>Memorie:
+    <select id="memorie"></select>
+  </label>
+
+  <label>HDD:
+    <select id="hdd"></select>
+  </label>
+
+  <label>Placa video:
+    <select id="placa_video"></select>
+  </label>
+
+  <div id="results"></div>
+
+  <script src="filtrare.js"></script>
+  <!-- <script src="filtrare-jquery.js"></script> -->
+
+</body>
+</html>
