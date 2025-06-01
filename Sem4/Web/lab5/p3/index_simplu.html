@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Editare client (JS simplu)</title>
+</head>
+<body>
+  <h2>Editare client (Vanilla JS)</h2>
+  <label for="idSelect">Selecteaza ID:</label>
+  <select id="idSelect"></select>
+
+  <form id="clientForm">
+    <p><label>Nume: <input type="text" id="nume"></label></p>
+    <p><label>Prenume: <input type="text" id="prenume"></label></p>
+    <p><label>Telefon: <input type="text" id="telefon"></label></p>
+    <p><label>Email: <input type="email" id="email"></label></p>
+    <button type="button" id="save" disabled>Save</button>
+  </form>
+
+  <script>
+    let currentId = null;
+    let modified = false;
+
+    function $(id) {
+      return document.getElementById(id);
+    }
+
+    function ajax(method, url, data, callback) {
+      const xhr = new XMLHttpRequest();
+      xhr.open(method, url, true);
+      if (method === "POST") {
+        xhr.setRequestHeader("Content-Type", "application/json");
+      }
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          callback(JSON.parse(xhr.responseText));
+        }
+      };
+      xhr.send(data ? JSON.stringify(data) : null);
+    }
+
+    function loadIDs() {
+      ajax("GET", "get_ids.php", null, function(ids) {
+        $("idSelect").innerHTML = ids.map(id => `<option value="${id}">${id}</option>`).join('');
+        loadClient(ids[0]);
+      });
+    }
+
+    function loadClient(id) {
+      ajax("GET", "get_client.php?id=" + id, null, function(data) {
+        $("nume").value = data.nume;
+        $("prenume").value = data.prenume;
+        $("telefon").value = data.telefon;
+        $("email").value = data.email;
+        $("save").disabled = true;
+        modified = false;
+        currentId = id;
+      });
+    }
+
+    $("idSelect").addEventListener("change", function () {
+      const newId = this.value;
+      if (modified) {
+        if (confirm("Datele au fost modificate. Dorești să le salvezi?")) {
+          saveClient(() => loadClient(newId));
+        } else {
+          loadClient(newId);
+        }
+      } else {
+        loadClient(newId);
+      }
+    });
+
+    ["nume", "prenume", "telefon", "email"].forEach(id => {
+      $(id).addEventListener("input", () => {
+        modified = true;
+        $("save").disabled = false;
+      });
+    });
+
+    function saveClient(callback) {
+      const data = {
+        id: currentId,
+        nume: $("nume").value,
+        prenume: $("prenume").value,
+        telefon: $("telefon").value,
+        email: $("email").value
+      };
+      ajax("POST", "update_client.php", data, function () {
+        modified = false;
+        $("save").disabled = true;
+        if (callback) callback();
+      });
+    }
+
+    $("save").addEventListener("click", function () {
+      saveClient();
+    });
+
+    window.onload = loadIDs;
+  </script>
+</body>
+</html>
