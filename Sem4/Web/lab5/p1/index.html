@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8" />
+    <title>Problema 1 AJAX</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Stații tren</h1>
+
+    <label for="departureJS">Plecare (JS):</label>
+    <select id="departureJS"></select>
+
+    <label for="arrivalJS">Sosire (JS):</label>
+    <select id="arrivalJS"></select>
+
+    <hr />
+
+    <label for="departureJQ">Plecare (jQuery):</label>
+    <select id="departureJQ"></select>
+
+    <label for="arrivalJQ">Sosire (jQuery):</label>
+    <select id="arrivalJQ"></select>
+
+    <script>
+        
+    // js
+
+    function loadDeparturesJS() {
+        const departureSelect = document.getElementById('departureJS');
+        fetch('get_departures.php')
+            .then(response => response.json())
+            .then(data => {
+                departureSelect.innerHTML = '';
+                data.forEach(statie => {
+                    const option = document.createElement('option');
+                    option.value = statie;
+                    option.textContent = statie;
+                    departureSelect.appendChild(option);
+                });
+                if (data.length > 0) loadArrivalsJS(data[0]);
+            })
+            .catch(err => console.error('Eroare la incarcarea plecarilor:', err));
+    }
+
+    function loadArrivalsJS(departure) {
+        const arrivalSelect = document.getElementById('arrivalJS');
+        fetch('get_arrivals.php?departure=' + encodeURIComponent(departure))
+            .then(response => response.json())
+            .then(data => {
+                arrivalSelect.innerHTML = '';
+                data.forEach(statie => {
+                    const option = document.createElement('option');
+                    option.value = statie;
+                    option.textContent = statie;
+                    arrivalSelect.appendChild(option);
+                });
+            })
+            .catch(err => console.error('Eroare la incarcarea sosirilor:', err));
+    }
+
+    document.getElementById('departureJS').addEventListener('change', function() {
+        loadArrivalsJS(this.value);
+    });
+
+    loadDeparturesJS();
+
+    // jQuery
+
+    function loadDeparturesJQ() {
+        $.ajax({
+            url: 'get_departures.php',
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                const $departure = $('#departureJQ');
+                $departure.empty();
+                data.forEach(function(statie) {
+                    $departure.append($('<option>').val(statie).text(statie));
+                });
+                if (data.length > 0) loadArrivalsJQ(data[0]);
+            },
+            error: function() {
+                console.error('Eroare la incarcarea plecarilor (jQuery)');
+            }
+        });
+    }
+
+    function loadArrivalsJQ(departure) {
+        $.ajax({
+            url: 'get_arrivals.php',
+            method: 'GET',
+            data: { departure: departure },
+            dataType: 'json',
+            success: function(data) {
+                const $arrival = $('#arrivalJQ');
+                $arrival.empty();
+                data.forEach(function(statie) {
+                    $arrival.append($('<option>').val(statie).text(statie));
+                });
+            },
+            error: function() {
+                console.error('Eroare la incarcarea sosirilor (jQuery)');
+            }
+        });
+    }
+
+    $('#departureJQ').on('change', function() {
+        loadArrivalsJQ(this.value);
+    });
+
+    $(document).ready(function() {
+        loadDeparturesJQ();
+    });
+    </script>
+</body>
+</html>
