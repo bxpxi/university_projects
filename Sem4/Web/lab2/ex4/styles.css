@@ -1,0 +1,104 @@
+ul {
+    display: table;
+}
+
+li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: table-cell;
+    height: 65px;
+}
+
+.image {
+    left: 0;
+    width: 70px;
+}
+
+#image1 {
+    background: url('icons.png') 0 -70px;
+}
+
+#image1:hover {
+    background: url('icons.png') 0 0;
+}
+
+#image2 {
+    background: url('icons.png') -70px -70px;
+}
+
+#image2:hover {
+    background: url('icons.png') -70px 0;
+}
+
+#image3 {
+    background: url('icons.png') -140px -70px;
+}
+
+#image3:hover {
+    background: url('icons.png') -140px 0;
+}
+
+#image4 {
+    background: url('icons.png') -210px -70px;
+}
+
+#image4:hover {
+    background: url('icons.png') -210px 0;
+}
+
+#image5 {
+    background: url('icons.png') -280px -70px;
+}
+
+#image5:hover {
+    background: url('icons.png') -280px 0;
+}
+
+#image6 {
+    background: url('icons.png') -350px -70px;
+}
+
+#image6:hover {
+    background: url('icons.png') -350px 0;
+}
+
+#image7 {
+    background: url('icons.png') -420px -70px;
+}
+
+#image7:hover {
+    background: url('icons.png') -420px 0;
+}
+
+#image8 {
+    background: url('icons.png') -480px -70px;
+}
+
+#image8:hover {
+    background: url('icons.png') -480px 0;
+}
+
+#image9 {
+    background: url('icons.png') -560px -70px;
+}
+
+#image9:hover {
+    background: url('icons.png') -560px 0;
+}
+
+#image10 {
+    background: url('icons.png') -630px -70px;
+}
+
+#image10:hover {
+    background: url('icons.png') -630px 0;
+}
+
+#image11 {
+    background: url('icons.png') -700px -70px;
+}
+
+#image11:hover {
+    background: url('icons.png') -700px 0;
+}
