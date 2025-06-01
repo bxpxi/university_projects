@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Problema 1</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script>
+            $(function () {
+                $('select').on('dblclick', 'option', function () {
+                    $(this).appendTo($(this).parent().is('#lista1') ? '#lista2' : '#lista1');
+                });
+            });
+        </script>
+
+    </head>
+    <body>
+        <select id="lista1" size="10">
+            <option value="Element 1">Element 1</option>
+            <option value="Element 2">Element 2</option>
+            <option value="Element 3">Element 3</option>
+            <option value="Element 4">Element 4</option>
+            <option value="Element 5">Element 5</option>
+        </select>
+        <select id="lista2" size="10">
+            <option value="Element 6">Element 6</option>
+            <option value="Element 7">Element 7</option>
+            <option value="Element 8">Element 8</option>
+            <option value="Element 9">Element 9</option>
+            <option value="Element 10">Element 10</option>
+        </select>
+    </body>
+</html>
