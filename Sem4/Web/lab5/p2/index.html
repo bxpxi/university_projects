@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Problema 2 AJAX</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h2>Lista persoane (paginat AJAX)</h2>
+    <div id="tabel"></div>
+
+    <button id="prev">Previous</button>
+    <button id="next">Next</button>
+
+    <script>
+        let currentPage = 0;
+
+        function loadPage(page) {
+            $.ajax({
+                url: "get_persoane.php",
+                method: "GET",
+                data: { page: page },
+                success: function(response) {
+                    const persoane = response.data;
+                    const total = response.total;
+                    const limit = response.limit;
+                    currentPage = response.page;
+
+                    let html = "<table border='1'><tr><th>Nume</th><th>Prenume</th><th>Telefon</th><th>Email</th></tr>";
+                    persoane.forEach(function(p) {
+                        html += `<tr>
+                            <td>${p.Nume}</td>
+                            <td>${p.Prenume}</td>
+                            <td>${p.Telefon}</td>
+                            <td>${p.Email}</td>
+                        </tr>`;
+                    });
+                    html += "</table>";
+
+                    $('#tabel').html(html);
+
+                    $('#prev').prop('disabled', currentPage === 0);
+                    $('#next').prop('disabled', (currentPage + 1) * limit >= total);
+                }
+            });
+        }
+
+        $('#prev').on('click', function() {
+            if (currentPage > 0) {
+                loadPage(currentPage - 1);
+            }
+        });
+
+        $('#next').on('click', function() {
+            loadPage(currentPage + 1);
+        });
+
+        $(document).ready(function() {
+            loadPage(0);
+        });
+    </script>
+</body>
+</html>
