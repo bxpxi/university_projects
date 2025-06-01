@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Problema 5</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <style>
+            #lista {
+                display: none;
+            }
+
+            body {
+                height: 100%;
+                width: 100%;
+            }
+
+            input[type='button'] {
+                font-size: 20px;
+                display: block;
+                margin: 0 auto;
+            }
+
+            img {
+                height: 600px;
+                width: 800px;
+            }
+
+            #imgCurenta {
+                margin: 0 auto;
+                width: fit-content;
+            }
+        </style>
+    </head>
+    <body>
+        <input type="button" id="previous" value="Previous" onclick="changeImg(-1)">
+        <br><br>
+
+        <div id="imgCurenta"></div>
+
+        <br>
+
+        <input type="button" id="next" value="Next" onclick="changeImg(1)">
+
+        <ol id="lista">
+            <li><a href="https://simple.wikipedia.org/wiki/Rose"><img src="1.jpg"> </a></li>
+            <li> <a href="https://en.wikipedia.org/wiki/Tulip"><img src="2.jpg"></a></li>
+            <li> <a href="https://ro.wikipedia.org/wiki/Hortensia"><img src="3.jpg"></a></li>
+            <li> <a href="https://ro.wikipedia.org/wiki/Frezie"><img src="4.jpg"></a></li>
+            <li> <a href="https://ro.wikipedia.org/wiki/Crin"><img src="5.jpg"></a></li>
+            <li><a href="https://ro.wikipedia.org/wiki/Zambil%C4%83"><img src="6.jpg"></a></li>
+            <li><a href="https://ro.wikipedia.org/wiki/Orhidee"><img src="7.jpg"></a></li>
+            <li><a href="https://ro.wikipedia.org/wiki/Orhidee"><img src="8.jpg"></a></li>
+        </ol>
+
+        <script src="script.js"></script>
+    </body>
+</html>
