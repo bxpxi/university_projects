@@ -1,0 +1,196 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Fișă de adopție</title>
+</head>
+<body>
+	<h1>Fișă de adopție</h1>
+
+	<table>
+		<tr> <td>Informații viitor proprietar</td></tr>
+		<tr><td>Informații <b>animăluț</b></td></tr>
+	</table>
+
+	<img src="https://img.freepik.com/premium-vector/cute-petshop-logo-with-cat-dog-vector_454510-133.jpg?w=2000" alt="logo" width="200" height="200" title="Pet Shop Logo">
+	
+	<form>
+		<fieldset>
+			<legend><strong>Formular adopție</strong></legend>
+			<h2>Informații despre viitorul proprietar</h2>
+
+			<label for="nume_p">Nume:</label>
+			<input type="text" name="nume_p" id="nume_p" value="Boroș" maxlength="30">
+
+			<label for="prenume_p">Prenume:</label>
+			<input type="text" name="prenume_p" id="prenume_p" value="Patricia">
+
+			<label for="cnp_p">Cnp:</label>
+			<input type="text" name="cnp_p" id="cnp_p" value="1234567890123">
+
+			<label for="data_p">Data nasterii:</label>
+			<input type="text" name="data_p" id="data_p" value="24.01.2005">
+
+			<label for="oras_p">Oras:</label>
+			<input type="text" name="oras_p" id="oras_p" value="Oradea">
+
+			<br><br>
+
+			<label for="judet_p">Județ:</label>
+			<input type="text" name="judet_p" id="judet_p" value="Bihor">
+
+
+			<label for="email_p">Email:</label>
+			<input type="text" name="email_p" id="email_p" value="boros.patri@gmail.com">
+
+
+			<label for="telefon_p">Telefon:</label>
+			<input type="number" name="telefon_p" id="telefon_p" value="0771513098" min="0000000000" max="9999999999" step="1" readonly>
+
+			<label>Gen:</label>
+			<input type="radio" name="gen_p" id="M" value="M">
+			<label for="M">M</label>
+			<input type="radio" name="gen_p" id="F" value="F" checked="checked">
+			<label for="F">F</label>
+
+
+
+		<p> Aveți experiență cu animalele?<span> Dacă da, detaliați</span></p>
+		<textarea rows="5" cols="80">Nu am mai avut animale pănă acum.</textarea>
+
+		<p>Motive adopție:</p>
+		<ol type="I">
+			<li>Îmbunătățirea stării de spirit</li>
+			<li>Companie și socializare</li>
+			<li>Responsabilitate și disciplină</li>
+		</ol>
+
+		<h2>Informații despre animal</h2>
+
+		<label for="nume_a">Nume:</label>
+		<input type="text" name="nume_a" id="nume_a" value="Bobby">
+
+		<label for="specie">Specie:</label>
+		<select id="specie" name="specie">
+			<option value="caine" selected>caine</option>
+			<option value="pisica">pisica</option>
+			<option value="iepure">iepure</option>
+		</select>
+
+		<label for="rasa_a">Rasă:</label>
+		<input type="text" name="rasa_a" id="rasa_a" value="Beagle">
+		<label>Gen:</label>
+		<input type="radio" name="gen_a" id="M_a" value="M" checked>
+		<label for="M">M</label>
+		<input type="radio" name="gen_a" id="F_a" value="F">
+		<label for="F">F</label>
+
+		<br>
+		<br>
+			
+		<label for="varsta_a">Vârstă:</label>
+		<input type="text" name="varsta_a" id="varsta_a" value="3">
+
+		<label for="culoare">Culoare:</label>
+		<select id="culoare" name="culoare" multiple size="2">
+			<option value="alb">alb</option>
+			<option value="negru">negru</option>
+			<option value="gri">gri</option>
+			<option value="maro">maro</option>
+			<option value="portocaliu" selected>portocaliu</option>
+		</select>
+
+		<label for="greutate_a">Greutate:</label>
+		<input type="text" name="greutate_a" id="greutate_a" value="20">
+
+		<br><br>
+
+		<table>
+			<tr>
+				<th colspan="3">Istoric medical</th>
+			</tr>
+
+			<tr>
+				<td>1</td>
+				<td>Vaccinuri</td>
+				<td>
+					<table>
+						<tr>
+							<td>Vaccin antirabic</td>
+							<td>12.10.2022</td>
+						</tr>
+
+						<tr>
+							<td>Vaccin împotriva virusurilor</td>
+							<td>20.06.2022</td>
+						</tr>
+
+						<tr>
+							<td>Vaccin împotriva leucemiei</td>
+							<td>03.02.2023</td>
+						</tr>
+					</table>	
+				</td>
+			</tr>
+
+			<tr>
+				<td>2</td>
+				<td>Boli suferite</td>
+				<td>
+					<table>
+						<tr>
+							<td>Gingivită</td>
+							<td>14.05.2023</td>
+							<td>Vindecat</td>
+						</tr>
+
+						<tr>
+							<td>Răceală</td>
+							<td>10.08.2024</td>
+							<td>Vindecat</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+
+		<p>Observații:</p>
+		<ol type="a" start="1">
+			<li>Realizarea obligatorie a vaccinului anual</li>
+			<li>
+				Opțional:
+				<ol type="A">
+					<li>zgardă anti-căpușe</li>
+					<li>deparazitare</li>
+				</ol>
+			</li>
+		</ol>
+
+		<input type="checkbox" id="acord" value="acord">
+		<label for="acord">Sunt de acord cu privire la regulile și politica organizației de adopție a animalelor, precum și la drepturile și respectarea acestora în calitate de viitor proprietar al animalului</label>
+
+		<br><br>
+		<input type="submit" name="submit">
+		<input type="reset" name="reset" disabled>
+
+		</fieldset>
+	</form>
+
+	<div>
+		<h3>Informații de contact:</h3>
+	<p>Pet Shop:<a href="#" target="_blank">Animax</a></p>
+	<p>Nr de telefon:</p>
+	<ul>
+		<li>Fost proprietar: 0758693214</li>
+		<li>
+			Companie:
+			<ul>
+				<li>Angajat Pet Shop: 0745663258</li>
+				<li>Manager Pet Shop: 0758699003</li>
+			</ul>
+		</li>
+	</ul>	
+	</div>
+
+</body>
+</html>
