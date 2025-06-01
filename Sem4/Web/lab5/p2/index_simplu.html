@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Persoane paginat - JavaScript simplu</title>
+</head>
+<body>
+  <h2>Lista persoane (paginat AJAX - Vanilla JS)</h2>
+  <div id="tabel"></div>
+
+  <button id="prev">Previous</button>
+  <button id="next">Next</button>
+
+  <script>
+    let currentPage = 0;
+
+    function loadPage(page) {
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", "get_persoane.php?page=" + page, true);
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
+          const persoane = response.data;
+          const total = response.total;
+          const limit = response.limit;
+          currentPage = response.page;
+
+          let html = "<table border='1'><tr><th>Nume</th><th>Prenume</th><th>Telefon</th><th>Email</th></tr>";
+          persoane.forEach(function (p) {
+            html += `<tr>
+              <td>${p.Nume}</td>
+              <td>${p.Prenume}</td>
+              <td>${p.Telefon}</td>
+              <td>${p.Email}</td>
+            </tr>`;
+          });
+          html += "</table>";
+          document.getElementById("tabel").innerHTML = html;
+          document.getElementById("prev").disabled = currentPage === 0;
+          document.getElementById("next").disabled = (currentPage + 1) * limit >= total;
+        }
+      };
+      xhr.send();
+    }
+
+    document.getElementById("prev").addEventListener("click", function () {
+      if (currentPage > 0) {
+        loadPage(currentPage - 1);
+      }
+    });
+
+    document.getElementById("next").addEventListener("click", function () {
+      loadPage(currentPage + 1);
+    });
+
+    window.onload = function () {
+      loadPage(0);
+    };
+  </script>
+</body>
+</html>
