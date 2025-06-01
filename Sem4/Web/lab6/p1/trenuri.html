@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8" />
+    <title>Problema 1</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        label { display: block; margin-top: 10px; }
+        input[type="text"] { width: 200px; padding: 5px; }
+        button { margin-top: 10px; padding: 5px 10px; }
+    </style>
+</head>
+<body>
+    <h1>Cautare trenuri</h1>
+    <form method="post" action="trenuri.php">
+        <label>
+            Localitate plecare:
+            <input type="text" name="plecare" required>
+        </label>
+        <label>
+            Localitate sosire:
+            <input type="text" name="sosire" required>
+        </label>
+        <label>
+            <input type="checkbox" name="directe" value="1"> Doar curse directe
+        </label>
+        <button type="submit">Cauta</button>
+    </form>
+</body>
+</html>
